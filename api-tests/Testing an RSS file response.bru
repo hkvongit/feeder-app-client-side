@@ -1,0 +1,15 @@
+meta {
+  name: Testing an RSS file response
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://davidwalsh.name/feed
+  body: none
+  auth: none
+}
+
+headers {
+  If-Modified-Since: 2025-11-20T00:40:04.000Z
+}

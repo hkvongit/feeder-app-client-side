@@ -1,0 +1,17 @@
+.main_container_header {
+    display: flex;
+    flex-direction: row;
+}
+
+.main_container_header_label {
+    font-size: larger;
+    font-weight: 700;
+}
+
+.main_container_count {
+    font-size: smaller;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid gray;
+    border-radius: 0.4rem;
+    margin-left: 0.25rem;
+}
