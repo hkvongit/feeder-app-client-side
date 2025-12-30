@@ -25,17 +25,18 @@ export default function FeedsPage() {
 
 
     return <div className={styles.main_container}>
-        <MainContainerHeader header="Feed sources" count={feedSources.feeds.length}><div></div></MainContainerHeader>
+        <MainContainerHeader header="Feed sources" count={feedSources.count}><div></div></MainContainerHeader>
         {feedSources.feeds.map((feedSource: any) => {
             const domainUrl = getDomainFromUrl(feedSource.url)
             return (
                 <div className={styles.feedSource} key={feedSource.id}>
                     {feedSource.favicon ? <img className={styles.feed_source_img} src={feedSource.favicon} alt={`${feedSource.title}-icon`} /> : <div className={styles.feed_source_icon}>{getFeedSourceInitials(feedSource.title)}</div>}
-                    <h2 className={styles.title}>{feedSource.id} - {feedSource.title}</h2>
-                    <a className={styles.rss_link} href={`https://${domainUrl}`} target="_blank">{domainUrl} </a>
+                    <h2 className={styles.title}>{feedSource.title}</h2>
                     <dd className={styles.description}>{feedSource.description}</dd>
+                    <a className={styles.rss_link} href={`https://${domainUrl}`} target="_blank">{domainUrl} </a>
                 </div>
             )
         })}
+        <p className="no_data_message">No more data available</p>
     </div>
 }

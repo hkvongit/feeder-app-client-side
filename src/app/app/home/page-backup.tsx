@@ -12,7 +12,6 @@ export default function FeedsPage() {
     const fetchRssData = async () => {
         await parser.parseURL(CORS_PROXY + 'https://davidwalsh.name/feed', function (err, feed) {
             if (err) throw err;
-            console.log(feed);
             setData(feed);
         })
     }

@@ -1,6 +1,7 @@
 .main_container_header {
     display: flex;
     flex-direction: row;
+    padding: 0 1rem 1rem 1rem;
 }
 
 .main_container_header_label {
@@ -11,7 +12,7 @@
 .main_container_count {
     font-size: smaller;
     padding: 0.2rem 0.4rem;
-    border: 1px solid gray;
+    border: var(--default-border);
     border-radius: 0.4rem;
     margin-left: 0.25rem;
 }

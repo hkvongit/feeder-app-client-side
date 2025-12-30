@@ -33,8 +33,9 @@
 
 .app_nav .nav_link:hover {
     text-decoration: underline;
-    background-color: beige;
+    text-decoration-color: rgba(128, 128, 128, 0.4);
+    background-color: var(--app-theme-color);
     padding: 1rem;
-    font-weight: 600;
+    font-weight: 400;
     border-radius: 0.2rem;
 }
