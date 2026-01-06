@@ -1,20 +1,20 @@
-.main_container {
+.feed_list {
     --icon-width: 3rem;
     --icon-border-radius: 0.25rem;
     --icon-theme-color: rgba(128, 128, 128, 0.1);
     --items-top-margin: 0.25rem;
     --default-border: 1px solid var(--border-color);
+
     display: flex;
     flex-direction: column;
     width: 40%;
-    padding: 5rem 0rem 0 0;
-    border-left: var(--default-border);
     border-right: var(--default-border);
+    border-left: var(--default-border);
 }
 
 .feedSource {
     display: grid;
-    grid-template-columns: auto 90%;
+    grid-template-columns: auto 1fr;
     grid-template-areas:
         "icon title title title"
         "icon link link link"
@@ -25,6 +25,10 @@
     padding: 1rem;
 }
 
+.feedSource:nth-child(1) {
+    border-top: none;
+}
+
 .title {
     font-size: medium;
     font-weight: 600;
@@ -33,10 +37,12 @@
     text-decoration: underline;
     text-decoration-color: rgba(128, 128, 128, 0.5);
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .title:hover {
     text-decoration-color: rgba(128, 128, 128, 1);
+    opacity: 0.6;
 }
 
 .rss_link,
@@ -48,7 +54,7 @@
 
 .rss_link {
     grid-area: link;
-    margin-top: var(--items-top-margin);
+    margin-top: calc(var(--items-top-margin)*2);
     text-decoration: underline;
     text-decoration-color: rgba(128, 128, 128, 0.4);
     width: fit-content;
