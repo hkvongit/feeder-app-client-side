@@ -8,3 +8,8 @@
 ```bash
 npm run dev
 ```
+
+## API Documentation
+
+- Use bruno app
+- Open `api-test` directory on Bruno.
