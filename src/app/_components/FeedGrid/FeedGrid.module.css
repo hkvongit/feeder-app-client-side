@@ -1,0 +1,69 @@
+.main_container {
+    --icon-width: 3rem;
+    --icon-border-radius: 0.25rem;
+    --icon-theme-color: rgba(128, 128, 128, 0.1);
+    --items-top-margin: 0.25rem;
+    --default-border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* padding: 4rem 0 0 0; */
+    overflow-y: visible;
+}
+
+.top_occupier {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.top_right_portion {
+    display: flex;
+    width: 60%;
+    min-height: 4rem;
+    border-right: var(--default-border);
+    border-left: var(--default-border);
+}
+
+.top_left_portion {
+    display: flex;
+    width: 30%;
+    min-height: 4rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    /* position: sticky; */
+    /* top: 0; */
+    z-index: 2;
+    background-color: var(--background);
+}
+
+/* This class will be applied by JavaScript */
+.header_stuck {
+    position: fixed;
+    top: 0;
+    width: 70%;
+    /* Matches your layout width */
+}
+
+.search_container {
+    display: flex;
+    width: 30%;
+    /* min-height: 100%; */
+}
+
+.left_section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.suggestions_container {
+    display: flex;
+    width: 30%;
+    /* min-height: 100%; */
+}

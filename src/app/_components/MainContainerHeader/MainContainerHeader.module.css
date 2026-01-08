@@ -1,7 +1,11 @@
 .main_container_header {
     display: flex;
     flex-direction: row;
-    padding: 0 1rem 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
+    width: 60%;
+    border-right: var(--default-border);
+    border-left: var(--default-border);
+    border-bottom: var(--default-border);
 }
 
 .main_container_header_label {

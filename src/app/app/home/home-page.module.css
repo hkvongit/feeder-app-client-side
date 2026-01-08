@@ -7,7 +7,7 @@
 
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 60%;
     border-right: var(--default-border);
     border-left: var(--default-border);
 }

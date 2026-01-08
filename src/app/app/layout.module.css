@@ -1,4 +1,9 @@
 .app_layout {
     display: flex;
     flex-direction: row;
+    /* margin-left is to make the occupy the app side bar [fixed positioned] */
+    padding-left: 30%;
+    /* Occupy rest of the space */
+    width: 100%;
+    /* height: auto; */
 }
