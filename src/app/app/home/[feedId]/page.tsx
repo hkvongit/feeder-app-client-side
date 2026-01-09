@@ -3,13 +3,13 @@
 import { stripHtml } from "@/helpers/html-helpers"
 import useFetchFeedData from "@/query-hooks/feeds/useFetchFeedData"
 import { use, useEffect } from "react"
-// import feedSourceStyle from '@/app/app/home/home-page.module.css'
 import styles from './feedlistpage.module.css'
 import { convertUtcToTimeDifferenceFromNow } from "@/helpers/datetime-helpers"
 import FeedGrid from "@/app/_components/FeedGrid/FeedGrid"
 import MainContainerHeader from "@/app/_components/MainContainerHeader/MainContainerHeader"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { ParsedFeedDataInf } from "@/app/_types/feed-types"
 
 // **Thing to implement**
 
@@ -35,22 +35,21 @@ export default function Feeds({ params }: {
         return <div className="p-4">No feed data found.</div>;
     }
 
+
     return (
         <FeedGrid header={<MainContainerHeader header={feedData?.feedInfo?.title ?? "Feed Name"} ><></></MainContainerHeader>}>
             <section className={styles.feed_data_list_section}>
                 <ul className={styles.unordered_list_of_feeds}>
-                    {feedData.items.map((item: any) => (
-                        <li key={item.guid || item.id} className={styles.feedDataListItem}>
+                    {feedData.items.map((item: ParsedFeedDataInf) => (
+                        <li key={item.id} className={styles.feedDataListItem}>
                             <article className={styles.feed_item}>
-                                {/* <Link > */}
-                                <Link href={`${urlPathName}/article/${encodeURIComponent(item.guid)}`} className={`${styles.feed_title}`}>{item.title}</Link>
-                                {/* </Link> */}
+                                <Link href={`${urlPathName}/article/${encodeURIComponent(item.id)}`} className={`${styles.feed_title}`}>{item.title}</Link>
                                 {item.pubDate ? <time className={styles.time}>
                                     {convertUtcToTimeDifferenceFromNow(item.pubDate)} days ago
                                 </time> : null}
                                 {
-                                    item["content:encoded"] ?
-                                        <p className={`${styles.desc}`}>{stripHtml(item["content:encoded"])}</p>
+                                    item.content?
+                                        <p className={`${styles.desc}`}>{stripHtml(item.content)}</p>
                                         : null
                                 }
                             </article>

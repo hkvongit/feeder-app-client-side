@@ -62,6 +62,7 @@
 .desc {
     grid-area: desc;
 
+    font-size: 0.8rem;
     width: 100%;
     margin-top: var(--items-top-margin);
     opacity: 0.6;

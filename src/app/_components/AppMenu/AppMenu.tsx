@@ -23,7 +23,7 @@ class NavLink {
         }
     }
 }
-const feedSources = new NavLink('Feed sources', "#", "ENABLED");
+const feedSources = new NavLink('Feed sources', "/app/home", "ENABLED");
 const favoriteSources = new NavLink('Favorite sources', "#", "ENABLED");
 const savedFeeds = new NavLink('Saved feeds', "#", "ENABLED");
 const tags = new NavLink('Tags', "#", "ENABLED");

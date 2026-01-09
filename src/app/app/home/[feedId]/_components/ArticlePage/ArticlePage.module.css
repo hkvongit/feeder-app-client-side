@@ -16,4 +16,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    width: 100%;
+    padding: 0 20%;
+    text-align: center;
 }

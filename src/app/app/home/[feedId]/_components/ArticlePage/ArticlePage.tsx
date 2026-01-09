@@ -3,6 +3,7 @@
 import styles from './ArticlePage.module.css'
 import useFetchArticle from '@/query-hooks/feeds/useFetchArticle'
 import ArticleContent from '@/app/_components/ArticleContent/ArticleContent'
+import { convertUtcToAppStdDateFormat } from '@/helpers/datetime-helpers'
 
 export default function ArticlePageComponent({
     articleId, feedId
@@ -32,7 +33,9 @@ export default function ArticlePageComponent({
     return (
         <article className={styles.modal}>
             <h1 className={styles.title}>{article.title}</h1>
-            <ArticleContent htmlContent={article["content:encoded"]} />
+            <p>{article.feedInfo.title}</p>
+            <time>{convertUtcToAppStdDateFormat(article.pubDate ?? "")}</time>
+            <ArticleContent htmlContent={article.content} />
         </article>
     )
 }
