@@ -1,0 +1,22 @@
+---
+description: Ensure Cursor always consults the docs folder for project standards and help articles.
+alwaysApply: true
+---
+
+# Project Documentation Standards
+
+Whenever you are tasked with understanding the project architecture, coding standards, or specific implementation details, you MUST first review the contents of the `docs/` folder.
+Also when you are asked for doubts check whether there is already a solution mentioned in the `docs/` directory.
+
+This directory contains:
+
+- `requirements.md`: Project scope and requirements.
+- `intro.md`: Overview of the project.
+- `developer-notes.md`: Specific technical notes and decisions.
+- Any other help articles or streamlining guides.
+
+### Instructions for Cursor:
+
+1. **Always Search Docs First**: Before answering architectural or "how-to" questions, perform a search in the `docs/` directory to see if there is an existing standard or guide.
+2. **Adhere to Standards**: Follow the conventions defined in these documents for all code generation and refactoring tasks.
+3. **Reference Docs**: When suggesting a solution that is based on a document in the `docs/` folder, mention which document you are referencing.

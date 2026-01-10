@@ -5,7 +5,16 @@
     color: #333;
     width: 50%;
     margin: auto;
+    border-bottom: var(--app-border);
+    padding-bottom: 2rem;
+    margin-bottom: 8rem;
 }
+.content_wrapper * {
+    max-width: 100%;
+    height: auto;      /* Important for maintaining aspect ratio of images */
+    box-sizing: border-box;
+}
+
 
 /* Style all nested paragraphs */
 .content_wrapper p {
@@ -32,4 +41,47 @@
 .content_wrapper a {
     color: #0070f3;
     text-decoration: underline;
+}
+
+.content_wrapper ol,
+.content_wrapper ul {
+    padding-left: 1rem;
+}
+
+.content_wrapper li {
+    padding-top: 0.5rem;
+}
+
+
+/* Style for code blocks and preformatted text */
+.content_wrapper pre {
+    background-color: #f6f8fa; /* Light grey background */
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;         /* CRITICAL: Adds horizontal scroll if code is too long */
+    margin: 1.5rem 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+    line-height: 1.45;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* Ensure inline code also behaves well */
+.content_wrapper code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 6px;
+    word-break: break-all;   /* Prevents long single-line code from breaking layout */
+}
+
+/* Ensure the code inside the pre tag doesn't wrap unnecessarily if you want the scroll */
+.content_wrapper pre code {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    word-break: normal;      /* Keeps lines intact for horizontal scrolling */
+    white-space: pre;        /* Preserves whitespace and prevents wrapping */
 }

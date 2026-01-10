@@ -1,0 +1,63 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    background: none;
+    color: var(--foreground);
+}
+
+.icon_only {
+    padding: 0.5rem;
+    aspect-ratio: 1;
+}
+
+/* Primary Variant */
+.primary {
+    background-color: var(--app-theme-color);
+    color: var(--background);
+}
+
+.primary:hover:not(:disabled) {
+    opacity: 0.9;
+    border: 1px solid var(--border-color)
+}
+
+/* Ghost Variant */
+.ghost {
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.ghost:hover:not(:disabled) {
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+/* States */
+.active {
+    background-color: var(--app-theme-color);
+    border-color: var(--border-color);
+}
+
+.button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.button:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
