@@ -16,7 +16,9 @@
     "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "rss-parser": "^3.13.0"
+    "react-hook-form": "^7.71.2",
+    "rss-parser": "^3.13.0",
+    "tamagui": "^2.0.0-rc.17"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.91.2",

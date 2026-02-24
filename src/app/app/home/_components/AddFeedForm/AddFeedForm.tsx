@@ -1,28 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import useAddFeed from "@/query-hooks/feeds/useAddFeed";
 import { isValidFeedUrl } from "@/helpers/url-helpers";
 import { Button } from "@/app/_components/Button/Button";
+import { AppTextInput } from "@/app/_components/AppTextInput/AppTextInput";
 import styles from "./AddFeedForm.module.css";
 
 interface AddFeedFormProps {
   onSuccess?: () => void;
 }
 
-interface FieldErrors {
-  title?: string;
-  url?: string;
+interface AddFeedFormValues {
+  title: string;
+  url: string;
+  description: string;
+  favicon: string;
 }
 
 export default function AddFeedForm({ onSuccess }: AddFeedFormProps) {
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
-  const [description, setDescription] = useState("");
-  const [favicon, setFavicon] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-
   const addFeed = useAddFeed();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<AddFeedFormValues>({
+    defaultValues: {
+      title: "",
+      url: "",
+      description: "",
+      favicon: "",
+    },
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
 
   // Reset mutation state when form is shown so previous errors don’t linger after reopening modal
   useEffect(() => {
@@ -38,37 +52,22 @@ export default function AddFeedForm({ onSuccess }: AddFeedFormProps) {
         ? "Something went wrong"
         : null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFieldErrors({});
-
-    const titleTrimmed = title.trim();
-    const urlTrimmed = url.trim();
-
-    const errors: FieldErrors = {};
-    if (!titleTrimmed) errors.title = "Title is required";
-    if (!urlTrimmed) errors.url = "URL is required";
-    else if (!isValidFeedUrl(urlTrimmed))
-      errors.url = "Please enter a valid http or https URL";
-
-    if (Object.keys(errors).length > 0) {
-      setFieldErrors(errors);
-      return;
-    }
+  const onSubmit = (values: AddFeedFormValues) => {
+    const titleTrimmed = values.title.trim();
+    const urlTrimmed = values.url.trim();
+    const descriptionTrimmed = values.description.trim();
+    const faviconTrimmed = values.favicon.trim();
 
     addFeed.mutate(
       {
         title: titleTrimmed,
         url: urlTrimmed,
-        ...(description.trim() && { description: description.trim() }),
-        ...(favicon.trim() && { favicon: favicon.trim() }),
+        ...(descriptionTrimmed && { description: descriptionTrimmed }),
+        ...(faviconTrimmed && { favicon: faviconTrimmed }),
       },
       {
         onSuccess: () => {
-          setTitle("");
-          setUrl("");
-          setDescription("");
-          setFavicon("");
+          reset();
           onSuccess?.();
         },
       },
@@ -82,36 +81,34 @@ export default function AddFeedForm({ onSuccess }: AddFeedFormProps) {
       addFeed.error.message.toLowerCase().includes("session"));
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="add-feed-title">
           Title
         </label>
-        <input
+        <AppTextInput
           id="add-feed-title"
           type="text"
-          className={`${styles.input} ${fieldErrors.title ? styles.input_error : ""}`}
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-            if (fieldErrors.title)
-              setFieldErrors((prev) => ({ ...prev, title: undefined }));
-          }}
           placeholder="e.g. Creative Bloq"
           disabled={addFeed.isPending}
           autoComplete="off"
-          aria-invalid={!!fieldErrors.title}
+          aria-invalid={!!errors.title}
           aria-describedby={
-            fieldErrors.title ? "add-feed-title-error" : undefined
+            errors.title ? "add-feed-title-error" : undefined
           }
+          hasError={!!errors.title}
+          {...register("title", {
+            validate: (value) =>
+              value.trim() ? true : "Title is required",
+          })}
         />
-        {fieldErrors.title && (
+        {errors.title && (
           <span
             id="add-feed-title-error"
             className={styles.error_message}
             role="alert"
           >
-            {fieldErrors.title}
+            {errors.title.message}
           </span>
         )}
       </div>
@@ -120,29 +117,35 @@ export default function AddFeedForm({ onSuccess }: AddFeedFormProps) {
         <label className={styles.label} htmlFor="add-feed-url">
           Feed URL
         </label>
-        <input
+        <AppTextInput
           id="add-feed-url"
           type="url"
-          className={`${styles.input} ${fieldErrors.url ? styles.input_error : ""}`}
-          value={url}
-          onChange={(e) => {
-            setUrl(e.target.value);
-            if (fieldErrors.url)
-              setFieldErrors((prev) => ({ ...prev, url: undefined }));
-          }}
           placeholder="https://example.com/feed"
           disabled={addFeed.isPending}
           autoComplete="off"
-          aria-invalid={!!fieldErrors.url}
-          aria-describedby={fieldErrors.url ? "add-feed-url-error" : undefined}
+          aria-invalid={!!errors.url}
+          aria-describedby={errors.url ? "add-feed-url-error" : undefined}
+          hasError={!!errors.url}
+          {...register("url", {
+            validate: (value) => {
+              const trimmed = value.trim();
+              if (!trimmed) {
+                return "URL is required";
+              }
+              return (
+                isValidFeedUrl(trimmed) ||
+                "Please enter a valid http or https URL"
+              );
+            },
+          })}
         />
-        {fieldErrors.url && (
+        {errors.url && (
           <span
             id="add-feed-url-error"
             className={styles.error_message}
             role="alert"
           >
-            {fieldErrors.url}
+            {errors.url.message}
           </span>
         )}
       </div>
@@ -151,15 +154,13 @@ export default function AddFeedForm({ onSuccess }: AddFeedFormProps) {
         <label className={styles.label} htmlFor="add-feed-description">
           Description (optional)
         </label>
-        <input
+        <AppTextInput
           id="add-feed-description"
           type="text"
-          className={styles.input}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
           placeholder="Short description of the feed"
           disabled={addFeed.isPending}
           autoComplete="off"
+          {...register("description")}
         />
       </div>
 
@@ -167,15 +168,13 @@ export default function AddFeedForm({ onSuccess }: AddFeedFormProps) {
         <label className={styles.label} htmlFor="add-feed-favicon">
           Favicon URL (optional)
         </label>
-        <input
+        <AppTextInput
           id="add-feed-favicon"
           type="url"
-          className={styles.input}
-          value={favicon}
-          onChange={(e) => setFavicon(e.target.value)}
           placeholder="https://example.com/favicon.ico"
           disabled={addFeed.isPending}
           autoComplete="off"
+          {...register("favicon")}
         />
       </div>
 
