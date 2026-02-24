@@ -104,3 +104,12 @@
     grid-area: icon;
     margin-right: 1rem;
 }
+
+.empty_state {
+    padding: 1rem;
+    opacity: 0.8;
+}
+
+.header_actions {
+    margin-left: auto;
+}

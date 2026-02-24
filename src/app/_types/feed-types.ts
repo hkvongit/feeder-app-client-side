@@ -1,3 +1,11 @@
+/** Request body for POST /feed (add new feed source). */
+export interface AddFeedRequestBody {
+  title: string;
+  url: string;
+  description?: string;
+  favicon?: string;
+}
+
 export interface FeedDbInfoInf {
   id: number;
   title: string;
