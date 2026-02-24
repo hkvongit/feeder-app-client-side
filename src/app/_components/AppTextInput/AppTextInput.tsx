@@ -1,21 +1,33 @@
-import React, { forwardRef } from "react";
-import styles from "./AppTextInput.module.css";
+import React, { ElementRef, forwardRef } from "react";
+import { Input, type InputProps } from "tamagui";
 
-interface AppTextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type AppTextInputElement = ElementRef<typeof Input>;
+
+interface AppTextInputProps extends InputProps {
   hasError?: boolean;
 }
 
-export const AppTextInput = forwardRef<HTMLInputElement, AppTextInputProps>(
-  ({ hasError = false, className = "", ...rest }, ref) => {
-    const inputClasses = [
-      styles.input,
-      hasError ? styles.input_error : "",
-      className,
-    ]
-      .join(" ")
-      .trim();
-
-    return <input ref={ref} className={inputClasses} {...rest} />;
+export const AppTextInput = forwardRef<AppTextInputElement, AppTextInputProps>(
+  ({ hasError = false, style, ...rest }, ref) => {
+    return (
+      <Input
+        ref={ref}
+        py={8}
+        px={12}
+        borderWidth={1}
+        fontSize={16}
+        borderColor={hasError ? "#c00" : "#666"}
+        focusStyle={{
+          borderColor: "#666",
+          outlineWidth: 0,
+        }}
+        style={[
+          { borderRadius: 6, backgroundColor: "transparent" },
+          style,
+        ]}
+        {...rest}
+      />
+    );
   },
 );
 

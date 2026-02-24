@@ -1,17 +1,21 @@
 import AppMenu from "@/app/_components/AppMenu/AppMenu";
 import TanstackProvider from "@/providers/TanstackProvider";
+import AppTamaguiProvider from "@/providers/TamaguiProvider";
 import { ReactNode } from "react";
-import styles from "./layout.module.css"
+
+import styles from "./layout.module.css";
 
 export default function AppLayout({
-    children
+  children,
 }: Readonly<{ children: ReactNode }>) {
-    return (
-        <TanstackProvider>
-            <main className={styles.app_layout}>
-                <AppMenu />
-                {children}
-            </main>
-        </TanstackProvider>
-    )
+  return (
+    <TanstackProvider>
+      <AppTamaguiProvider>
+        <main className={styles.app_layout}>
+          <AppMenu />
+          {children}
+        </main>
+      </AppTamaguiProvider>
+    </TanstackProvider>
+  );
 }

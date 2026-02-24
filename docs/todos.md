@@ -1,6 +1,6 @@
 - [ ] Add logic to listen to user session expiry and pop up login screen to re-login the user. 401 HTTP RESPONSE CODE.
-- [ ] Use TAMAGUI as the UI library
+- [x] Use TAMAGUI as the UI library
 - [ ] Add a toast notification on adding or updating an existing feed source.
-- [ ] Use react hook forms library for forms.
-- [ ] create dedicated components for all form input types
+- [x] Use react hook forms library for forms.
+- [x] create dedicated components for all form input types
 - [ ] Replace fetch API with Axios for better control on REST API requests.
