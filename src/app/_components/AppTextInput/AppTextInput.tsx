@@ -1,3 +1,5 @@
+"use client";
+import { convertTamaGuiStyleFromArraysToObject } from "@/helpers/html-helpers";
 import React, { ElementRef, forwardRef } from "react";
 import { Input, type InputProps } from "tamagui";
 
@@ -7,8 +9,11 @@ interface AppTextInputProps extends InputProps {
   hasError?: boolean;
 }
 
+export type TamaGuiStyleInf = InputProps["style"];
+
 export const AppTextInput = forwardRef<AppTextInputElement, AppTextInputProps>(
   ({ hasError = false, style, ...rest }, ref) => {
+    const resolvedStyle = convertTamaGuiStyleFromArraysToObject(style);
     return (
       <Input
         ref={ref}
@@ -21,10 +26,11 @@ export const AppTextInput = forwardRef<AppTextInputElement, AppTextInputProps>(
           borderColor: "#666",
           outlineWidth: 0,
         }}
-        style={[
-          { borderRadius: 6, backgroundColor: "transparent" },
-          style,
-        ]}
+        style={{
+          borderRadius: 6,
+          backgroundColor: "transparent",
+          ...resolvedStyle,
+        }}
         {...rest}
       />
     );

@@ -51,4 +51,3 @@ export function AppTextInputField<TFieldValues extends FieldValues>({
     </AppFormField>
   );
 }
-

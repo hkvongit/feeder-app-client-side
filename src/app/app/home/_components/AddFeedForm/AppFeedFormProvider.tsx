@@ -72,16 +72,6 @@ export default function AppFeedFormProvider({ onSuccess }: AddFeedFormProps) {
     );
   };
 
-  const isSessionExpired =
-    addFeed.isError &&
-    addFeed.error instanceof Error &&
-    (addFeed.error.message.toLowerCase().includes("unauthorized") ||
-      addFeed.error.message.toLowerCase().includes("session"));
-
-  const globalErrorMessage = isSessionExpired
-    ? "Session expired. Please sign in again."
-    : submitError;
-
   const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     void handleSubmit(onSubmit)(event);
   };
@@ -92,7 +82,7 @@ export default function AppFeedFormProvider({ onSuccess }: AddFeedFormProps) {
       register={register}
       errors={errors}
       onSubmit={handleFormSubmit}
-      globalErrorMessage={globalErrorMessage}
+      globalErrorMessage={submitError}
     />
   );
 }

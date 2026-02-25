@@ -1,4 +1,7 @@
 import AppMenu from "@/app/_components/AppMenu/AppMenu";
+import SessionExpiryProvider, {
+  SessionExpiryAlert,
+} from "@/providers/SessionExpiryProvider";
 import TanstackProvider from "@/providers/TanstackProvider";
 import AppTamaguiProvider from "@/providers/TamaguiProvider";
 import { ReactNode } from "react";
@@ -9,13 +12,16 @@ export default function AppLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <TanstackProvider>
-      <AppTamaguiProvider>
-        <main className={styles.app_layout}>
-          <AppMenu />
-          {children}
-        </main>
-      </AppTamaguiProvider>
-    </TanstackProvider>
+    <SessionExpiryProvider>
+      <TanstackProvider>
+        <AppTamaguiProvider>
+          <main className={styles.app_layout}>
+            <SessionExpiryAlert />
+            <AppMenu />
+            {children}
+          </main>
+        </AppTamaguiProvider>
+      </TanstackProvider>
+    </SessionExpiryProvider>
   );
 }
