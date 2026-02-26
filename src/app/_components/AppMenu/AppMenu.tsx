@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
-import styles from "./AppMenu.module.css"
+import styles from "./AppMenu.module.css";
 import { BRAND } from "@/constants";
+import LogoutButton from "@/app/_components/LogoutButton/LogoutButton";
 
 interface NavItem {
     label: string;
@@ -39,17 +42,24 @@ const navlinks = [
 
 // Main React Function
 export default function AppMenu() {
-    return (
-        <nav className={styles.app_nav}>
-            <div className={styles.brand_container}>
-                <p className={styles.brand_name}>{BRAND.APP_NAME}</p>
-                <p className={styles.brand_tagline} > {BRAND.TAGLINE}</p>
-            </div>
-            {
-                navlinks.map((item: NavItem) => (
-                    <Link className={styles.nav_link} key={item.label} href={item.link} prefetch={false}>{item.label}</Link>
-                ))
-            }
-        </nav >
-    )
+  return (
+    <nav className={styles.app_nav}>
+      <div className={styles.brand_container}>
+        <p className={styles.brand_name}>{BRAND.APP_NAME}</p>
+        <p className={styles.brand_tagline}>{BRAND.TAGLINE}</p>
+      </div>
+      {navlinks.map((item: NavItem) => (
+        <Link
+          className={styles.nav_link}
+          key={item.label}
+          href={item.link}
+          prefetch={false}
+        >
+          {item.label}
+        </Link>
+      ))}
+      <div className={styles.nav_spacer} />
+      <LogoutButton />
+    </nav>
+  );
 }

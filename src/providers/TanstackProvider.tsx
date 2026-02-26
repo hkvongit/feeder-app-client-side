@@ -6,10 +6,12 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { type ReactNode } from "react";
 import { SessionExpiredError } from "@/lib/api-client";
+import { clearToken } from "@/lib/token-storage";
 import { notifySessionExpired } from "@/lib/session-expiry-notifier";
 
 function handleSessionExpired(error: unknown): void {
   if (error instanceof SessionExpiredError) {
+    clearToken();
     notifySessionExpired(error.message);
   }
 }

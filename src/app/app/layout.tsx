@@ -1,4 +1,4 @@
-import AppMenu from "@/app/_components/AppMenu/AppMenu";
+import AppMenuWrapper from "@/app/_components/AppMenu/AppMenuWrapper";
 import SessionExpiryProvider, {
   SessionExpiryAlert,
 } from "@/providers/SessionExpiryProvider";
@@ -17,7 +17,7 @@ export default function AppLayout({
         <AppTamaguiProvider>
           <main className={styles.app_layout}>
             <SessionExpiryAlert />
-            <AppMenu />
+            <AppMenuWrapper />
             {children}
           </main>
         </AppTamaguiProvider>

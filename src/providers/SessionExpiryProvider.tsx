@@ -9,8 +9,10 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Dialog, XStack, YStack } from "tamagui";
 import { setSessionExpiredCallback } from "@/lib/session-expiry-notifier";
+import { CLIENT_SIDE_ROUTES } from "@/constants";
 
 type SessionExpiryContextValue = {
   isSessionExpired: boolean;
@@ -35,8 +37,14 @@ export function useSessionExpiry(): SessionExpiryContextValue {
 }
 
 export function SessionExpiryAlert() {
+  const router = useRouter();
   const { isSessionExpired, message, clearSessionExpired } = useSessionExpiry();
   if (!isSessionExpired) return null;
+
+  const handleDismiss = () => {
+    clearSessionExpired();
+    router.push(CLIENT_SIDE_ROUTES.LOGIN);
+  };
 
   return (
     <Dialog
@@ -44,7 +52,7 @@ export function SessionExpiryAlert() {
       open
       onOpenChange={(open) => {
         if (!open) {
-          clearSessionExpired();
+          handleDismiss();
         }
       }}
     >

@@ -1,4 +1,5 @@
-import { API_BASE_URL, API_BEARER_TOKEN } from "@/constants";
+import { API_BASE_URL } from "@/constants";
+import { getToken } from "@/lib/token-storage";
 
 /** Thrown when the API returns 401 or a session-expired style message. */
 export class SessionExpiredError extends Error {
@@ -20,6 +21,8 @@ export type ApiRequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   headers?: Record<string, string>;
+  /** When true, omit Authorization header (for login/register). */
+  skipAuth?: boolean;
 };
 
 /**
@@ -31,11 +34,17 @@ export async function apiRequest<T = unknown>(
   path: string,
   options: ApiRequestOptions = {},
 ): Promise<T | null> {
-  const { method = "GET", body, headers: customHeaders = {} } = options;
+  const {
+    method = "GET",
+    body,
+    headers: customHeaders = {},
+    skipAuth,
+  } = options;
   const url = `${API_BASE_URL}${path}`;
+  const token = skipAuth ? null : getToken();
   const headers: Record<string, string> = {
-    Authorization: `Bearer ${API_BEARER_TOKEN}`,
     "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...customHeaders,
   };
 

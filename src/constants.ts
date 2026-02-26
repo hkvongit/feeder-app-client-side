@@ -1,10 +1,11 @@
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export const API_BEARER_TOKEN = process.env.NEXT_PUBLIC_API_BEARER_TOKEN;
-
 export const API_PATHS = {
   FEEDS: "/feed",
   FETCH_FEED_DATA: "/feed-data",
+  REGISTER: "/register",
+  LOGIN: "/login",
+  LOGOUT: "/logout",
 };
 
 /** React Query key for feed sources list (GET /feed). */
@@ -18,6 +19,8 @@ export const BRAND = {
 
 export const CLIENT_SIDE_ROUTES = {
   HOME: "/app/home",
+  LOGIN: "/app/login",
+  REGISTER: "/app/register",
   FAV_SOURCES: "/app/favorites",
   SAVED_FEEDS: "/app/saved-feeds",
   TAGS: "/app/tags",

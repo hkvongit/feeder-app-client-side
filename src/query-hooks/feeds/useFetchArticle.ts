@@ -5,7 +5,6 @@ import {
   ParsedFeedDataInf,
   TransformedArticleDataInf,
 } from "@/app/_types/feed-types";
-import { API_BASE_URL, API_BEARER_TOKEN, API_PATHS } from "@/constants";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface IUseFetchFeedData {
@@ -35,7 +34,7 @@ export default function useFetchArticle({
       ]);
 
       const cachedArticle = feedData?.items?.find(
-        (item: ParsedFeedDataInf) => item.id === articleGuid
+        (item: ParsedFeedDataInf) => item.id === articleGuid,
       );
       const result = {
         ...cachedArticle,
