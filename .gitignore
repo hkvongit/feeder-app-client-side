@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# API test - syslinked directory which is already tracked in the server directory
+api-tests--syslink
+api-tests--syslink/
