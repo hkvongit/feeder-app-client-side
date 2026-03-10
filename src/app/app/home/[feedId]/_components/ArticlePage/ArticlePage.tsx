@@ -11,6 +11,8 @@ import {
   BookmarkIcon,
 } from "@/app/_components/Icons";
 import { Button } from "@/app/_components/Button/Button";
+import { XStack, YStack } from "tamagui";
+import { ChatPanel } from "@/app/_components/ChatPanel/ChatPanel";
 
 export default function ArticlePageComponent({
   articleId,
@@ -55,6 +57,8 @@ export default function ArticlePageComponent({
     );
   }
 
+  const articleGuidFromUrl = decodeURIComponent(articleId);
+
   return (
     <article className={styles.modal}>
       <header className={styles.header}>
@@ -84,13 +88,22 @@ export default function ArticlePageComponent({
           />
         </div>
       </header>
-      <div className={styles.article_info}>
-        <h1 className={styles.title}>{article.title}</h1>
-        <time className={styles.published_date}>
-          {convertUtcToAppStdDateFormat(article.pubDate ?? "")}
-        </time>
-      </div>
-      <ArticleContent htmlContent={article.content} />
+      <XStack flex={1} gap={16} style={{ marginTop: 16 }}>
+        <YStack flex={2}>
+          <div className={styles.article_info}>
+            <h1 className={styles.title}>{article.title}</h1>
+            <time className={styles.published_date}>
+              {convertUtcToAppStdDateFormat(article.pubDate ?? "")}
+            </time>
+          </div>
+          <ArticleContent htmlContent={article.content} />
+        </YStack>
+        <ChatPanel
+          articleGuid={articleGuidFromUrl}
+          url={article.link}
+          fallbackSnippet={article.summary}
+        />
+      </XStack>
     </article>
   );
 }

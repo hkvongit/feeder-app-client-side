@@ -6,6 +6,8 @@ export const API_PATHS = {
   REGISTER: "/register",
   LOGIN: "/login",
   LOGOUT: "/logout",
+  AI_CHAT: "/chats",
+  AI_CHAT_HISTORY: "/chats/history",
 };
 
 /** React Query key for feed sources list (GET /feed). */
